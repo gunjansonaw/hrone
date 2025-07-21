@@ -9,4 +9,4 @@ services:
       uvicorn app.main:app --host 0.0.0.0 --port 10000
     envVars:
       - key: MONGODB_URL
-        value: mongodb+srv://Gunjan:bmwm3gtr@A@cluster0.jf8hy84.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: S
