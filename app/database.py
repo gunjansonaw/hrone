@@ -1,14 +1,20 @@
+from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import MongoClient
-from pymongo.server_api import ServerApi
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+MONGODB_URL = os.getenv("MONGODB_URL")
 
-client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
-db = client["ecommerce"]
+client = AsyncIOMotorClient(MONGODB_URL)
+db = client.ecommerce
 
-def get_db():
-    return db
+def ping_db():
+    """Test database connection"""
+    try:
+        MongoClient(MONGODB_URL).admin.command('ping')
+        return True
+    except Exception as e:
+        print(f"MongoDB connection error: {e}")
+        return False
